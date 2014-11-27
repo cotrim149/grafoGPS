@@ -87,15 +87,16 @@ int main() {
 //
 //	}
 
-	Graph copiedGraph = graph1;
-
-	cout << "Busca em largura" << endl;
-	graph1.busca(copiedGraph,true);
-
-	Graph copiedGraph2 = graph1;
-
-	cout << "\nBusca em Profundidade" << endl;
-	graph1.busca(copiedGraph2,false);
+//	Buscas - largura e profundidade
+//	Graph copiedGraph = graph1;
+//
+//	cout << "Busca em largura" << endl;
+//	graph1.busca(copiedGraph,true);
+//
+//	Graph copiedGraph2 = graph1;
+//
+//	cout << "\nBusca em Profundidade" << endl;
+//	graph1.busca(copiedGraph2,false);
 
 //	teste de copia
 //	printf("\nPonteiro original: %p \nPonteiro copiado: %p\n",&graph1,&copiedGraph);
@@ -104,6 +105,11 @@ int main() {
 //
 //	cout << "Degree node 1, copied graph: "<<copiedGraph.nodes.at(0).degree.size() << endl;
 //	cout << "Degree node 1, graph1 : "<<graph1.nodes.at(0).degree.size() << endl;
+
+
+
+	graph1.generateAdjacencyMatrix();
+
 
 	return 0;
 }

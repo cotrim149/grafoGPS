@@ -27,6 +27,9 @@ public:
 
 	void busca(Graph component,bool type);
 
+	void generateAdjacencyMatrix();
+
+	void mountReverseGraph();
 
 };
 

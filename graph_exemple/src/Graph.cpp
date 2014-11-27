@@ -152,3 +152,44 @@ void Graph::busca(Graph component, bool type){
 		}
 	}
 }
+
+void Graph::generateAdjacencyMatrix(){
+
+	int matrix[nodes.size()][nodes.size()];
+
+	for(int line=0;line<nodes.size();line++){
+		for(int column=0;column<nodes.size();column++){
+			matrix[line][column]=0;
+		}
+	}
+
+	for(int i=0;i<nodes.size();i++){
+		int idNode = nodes.at(i).id;
+
+		for(int edges=0;edges<nodes.at(i).degree.size();edges++){
+			int idEdge = nodes.at(i).degree.at(edges).id;
+
+			matrix[idNode-1][idEdge-1] = 1;
+
+		}
+	}
+
+	for(int line=0;line<nodes.size();line++){
+		for(int column=0;column<nodes.size();column++){
+			cout << " " << matrix[line][column] << " ";
+
+			if(column == nodes.size()-1)
+				cout << endl;
+
+		}
+	}
+
+//	return (int**)matrix;
+
+}
+
+
+void Graph::mountReverseGraph(){
+
+}
+
