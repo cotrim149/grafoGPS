@@ -117,8 +117,9 @@ void Graph::busca(Graph component, bool type){
 		component.nodes.pop_back();
 
 		putNodeInSelectedVector(&visitedNodes,node,&stackOrLine,type);
-		nodeRoundVisited = false;
+
 		while(stackOrLine.size()!=0){
+			//Dequeue ou desempilhamento
 			Node visitationNode = stackOrLine.at(stackOrLine.size()-1);
 			stackOrLine.pop_back();
 
@@ -139,13 +140,14 @@ void Graph::busca(Graph component, bool type){
 				visitationNode.degree.pop_back();
 				cout << "id node: " << node.id << endl;
 
+				if(i == (degreeNode-1))
+					nodeRoundVisited = false;
+
 				// verifica se o nó ligado ao vertice já foi visitado
 				// Verifica se foi explorado, se não foi explorado add o vértice como visistado e coloca na fila ou pilha
-				bool explored = putNodeInSelectedVector(&visitedNodes,edge,&stackOrLine,type);
+				putNodeInSelectedVector(&visitedNodes,edge,&stackOrLine,type);
 				printLine(stackOrLine);
 			}
-
-			nodeRoundVisited = false;
 
 		}
 	}
