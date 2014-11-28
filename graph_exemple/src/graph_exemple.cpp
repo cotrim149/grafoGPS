@@ -108,8 +108,8 @@ int main() {
 
 
 
-	graph1.generateAdjacencyMatrix();
-
+	graph1.getReverseAdjacencyMatrix();
+	graph1.mountReverseGraph();
 
 	return 0;
 }

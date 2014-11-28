@@ -8,6 +8,7 @@
 #ifndef GRAPH_H_
 #define GRAPH_H_
 #include <stdio.h>
+#include <cstdlib>
 #include <vector>
 #include "Node.h"
 
@@ -27,8 +28,8 @@ public:
 
 	void busca(Graph component,bool type);
 
-	void generateAdjacencyMatrix();
-
+	int** getAdjacencyMatrix();
+	int** getReverseAdjacencyMatrix();
 	void mountReverseGraph();
 
 };

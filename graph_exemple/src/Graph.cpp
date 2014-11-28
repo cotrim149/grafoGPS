@@ -153,20 +153,42 @@ void Graph::busca(Graph component, bool type){
 	}
 }
 
-void Graph::generateAdjacencyMatrix(){
+void printMatrix(int** matrix, unsigned int sizeMatrix){
 
-	int matrix[nodes.size()][nodes.size()];
+	for(int line=0;line<sizeMatrix;line++){
+		cout << "dentro 1 for " << line << endl;
 
-	for(int line=0;line<nodes.size();line++){
-		for(int column=0;column<nodes.size();column++){
-			matrix[line][column]=0;
+		for(int column=0;column<sizeMatrix;column++){
+			cout << " " << matrix[line][column] << " ";
+			cout << "trste " << column<< endl;
+			if(column == sizeMatrix-1)
+				cout << endl;
+
 		}
 	}
 
-	for(int i=0;i<nodes.size();i++){
+}
+
+int** Graph::getAdjacencyMatrix(){
+	int sizeMatrix = nodes.size();
+	int** matrix = (int**)malloc(sizeof(int*)*sizeMatrix);
+
+	// Alloc matrix
+	for(int line=0;line<sizeMatrix;line++){
+		matrix[line] = (int*)malloc(sizeof(int)*sizeMatrix);
+	}
+
+
+	for(int line=0;line<sizeMatrix;line++){
+		for(int column=0;column<sizeMatrix;column++){
+			matrix[line][column]=0;
+		}
+	}
+	// make matrix
+	for(int i=0;i<sizeMatrix;i++){
 		int idNode = nodes.at(i).id;
 
-		for(int edges=0;edges<nodes.at(i).degree.size();edges++){
+		for(unsigned int edges=0;edges<nodes.at(i).degree.size();edges++){
 			int idEdge = nodes.at(i).degree.at(edges).id;
 
 			matrix[idNode-1][idEdge-1] = 1;
@@ -174,22 +196,82 @@ void Graph::generateAdjacencyMatrix(){
 		}
 	}
 
-	for(int line=0;line<nodes.size();line++){
-		for(int column=0;column<nodes.size();column++){
+	cout << "Adjacency Matrix!" << endl;
+	for(int line=0;line<sizeMatrix;line++){
+		for(int column=0;column<sizeMatrix;column++){
 			cout << " " << matrix[line][column] << " ";
-
-			if(column == nodes.size()-1)
+			if(column == sizeMatrix-1)
 				cout << endl;
-
 		}
 	}
 
-//	return (int**)matrix;
+//	printf("matrix address %p",&matrix);
+	return matrix;
 
 }
 
+int** Graph::getReverseAdjacencyMatrix(){
+	int** matrix = getAdjacencyMatrix();
+
+	int sizeMatrix = nodes.size();
+
+	int** reverseMatrix = (int**)malloc(sizeof(int*)*sizeMatrix);
+
+	for(int line=0;line<sizeMatrix;line++){
+		reverseMatrix[line] = (int*)malloc(sizeof(int)*sizeMatrix);
+	}
+
+	for(int i=0;i<sizeMatrix;i++){
+		for(int j=0;j<sizeMatrix;j++){
+			reverseMatrix[i][j] = 0;
+			if(matrix[j][i] == 1){
+				reverseMatrix[i][j] = 1;
+			}
+		}
+	}
+
+	cout << "Reverse Matrix!" << endl;
+	for(int line=0;line<sizeMatrix;line++){
+		for(int column=0;column<sizeMatrix;column++){
+			cout << " " << reverseMatrix[line][column] << " ";
+			if(column == sizeMatrix-1)
+				cout << endl;
+		}
+	}
+
+
+	return reverseMatrix;
+}
 
 void Graph::mountReverseGraph(){
 
+	int sizeMatrix=nodes.size();
+	int **reverseMatrix = getReverseAdjacencyMatrix();
+
+	Graph component;
+
+
+	for(int line=0;line<sizeMatrix;line++){
+		Node originNode;
+		originNode.id = line+1;
+
+		for(int column=0;column<sizeMatrix;column++){
+
+			if(reverseMatrix[line][column] == 1){
+				Node targetNode;
+				targetNode.id = column+1;
+
+				originNode.insertEdge(targetNode);
+
+			}
+		}
+		component.insertNode(originNode);
+	}
+
+	cout << "Nodes in Reverse Graph: " << component.nodes.size() << endl;
+
+	for(int i=0;i<component.nodes.size();i++){
+		cout << "Degree Node " << i+1 << ": " << component.nodes.at(i).degree.size() << endl;
+	}
 }
 
